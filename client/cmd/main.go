@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "client/app"
 
+func main() {
+	app.Run()
 }
