@@ -9,5 +9,9 @@ import (
 func GetController(c echo.Context) error {
 	hours := c.QueryParam("hours")
 	minutes := c.QueryParam("minutes")
-	return c.String(http.StatusOK, infrastructure.EuToUsTimeConverter(hours, minutes))
+	if response, err := infrastructure.EuToUsTimeConverter(hours, minutes); err == nil {
+		return c.String(http.StatusOK, response)
+	} else {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
 }
