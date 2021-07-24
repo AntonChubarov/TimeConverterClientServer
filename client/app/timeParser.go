@@ -5,10 +5,10 @@ import (
 	"strings"
 )
 
-func TryToParse(time string) (string, string, error) {
+func TryToParse(time string) (hours, minutes string,  err error) {
 	time = strings.ReplaceAll(time, " ", "")
 	if !strings.Contains(time, ":") {
-		return "0", "0", fmt.Errorf("Hours and minutes should be divided with \":\"")
+		return "0", "0", fmt.Errorf("hours and minutes should be divided with \":\"")
 	}
 	hm := strings.Split(time, ":")
 	return hm[0], hm[1], nil

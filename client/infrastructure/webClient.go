@@ -23,7 +23,6 @@ func (w *WebConverter) ConvertTime(hours, minutes string) string {
 	}
 	if resp.IsSuccess() {
 		return resp.String()
-	} else {
-		return resp.RawResponse.Status
 	}
+	return resp.RawResponse.Status
 }
