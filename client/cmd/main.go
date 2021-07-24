@@ -1,7 +1,12 @@
 package main
 
-import "client/app"
+import (
+	"client/app"
+	"client/infrastructure"
+)
 
 func main() {
-	app.Run()
+	converter := infrastructure.NewWebConverter()
+	ui := infrastructure.NewConsole()
+	app.Run(converter, ui)
 }

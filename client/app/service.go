@@ -1,18 +1,16 @@
 package app
 
 import (
-	"client/infrastructure"
+	"client/domain"
 	"log"
 )
 
-func Run() {
-	client := infrastructure.NewWebClient()
-
+func Run(converter domain.TimeConverter, ui domain.UserInterface) {
 	for {
-		time := infrastructure.GetTime()
-		if hours, minutes, err := infrastructure.TryToParse(time); err == nil {
-			timeFromServer := client.ConvertTimeOnServer(hours, minutes)
-			infrastructure.ShowTime(timeFromServer)
+		time := ui.GetTime()
+		if hours, minutes, err := TryToParse(time); err == nil {
+			timeFromServer := converter.ConvertTime(hours, minutes)
+			ui.ShowTime(timeFromServer)
 		} else {
 			log.Println(err)
 			continue

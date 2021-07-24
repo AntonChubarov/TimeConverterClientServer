@@ -2,24 +2,24 @@ package infrastructure
 
 import (
 	"github.com/go-resty/resty/v2"
+	"log"
 )
 
-type WebClient struct {
+type WebConverter struct {
 	client *resty.Client
 }
 
-func NewWebClient() *WebClient {
-	return &WebClient{
+func NewWebConverter() *WebConverter {
+	return &WebConverter{
 		resty.New(),
 	}
 }
 
-func (w *WebClient) ConvertTimeOnServer(hours, minutes string) string {
-
+func (w *WebConverter) ConvertTime(hours, minutes string) string {
 	url := "http://localhost:8080/time?hours=" + hours + "&minutes=" + minutes
 	resp, err:= w.client.R().Get(url)
 	if err !=nil {
-		panic(err)
+		log.Println(err)
 	}
 	if resp.IsSuccess() {
 		return resp.String()
