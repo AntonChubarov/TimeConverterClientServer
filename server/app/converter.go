@@ -21,8 +21,14 @@ func ConvertEuTimeToUs(hours, minutes string) (string, error) {
 		zeroPrefix = "0"
 	}
 
-	if numHours <= 12 {
+	if numHours < 12 {
 		return strconv.Itoa(numHours) + ":" + zeroPrefix + strconv.Itoa(numMinutes) + " AM", nil
+	}
+	if numHours == 12 && numMinutes == 0 {
+		return strconv.Itoa(numHours) + ":" + zeroPrefix + strconv.Itoa(numMinutes) + " AM", nil
+	}
+	if numHours == 12 && numMinutes > 0 {
+		return strconv.Itoa(numHours) + ":" + zeroPrefix + strconv.Itoa(numMinutes) + " PM", nil
 	}
 	return strconv.Itoa(numHours % 12) + ":" + zeroPrefix + strconv.Itoa(numMinutes) + " PM", nil
 }
